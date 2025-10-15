@@ -1,0 +1,85 @@
+{
+    "tasks": [
+        {
+            "label": "Delete bin folder",
+            "type": "shell",
+            "command": "if (Test-Path bin) { Remove-Item bin -Recurse -Force }",
+            "options": {
+                "cwd": "${workspaceFolder}",
+                "shell": {
+                    "executable": "powershell.exe",
+                    "args": ["-Command"]
+                }
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Delete obj folder",
+            "type": "shell",
+            "command": "if (Test-Path obj) { Remove-Item obj -Recurse -Force }",
+            "options": {
+                "cwd": "${workspaceFolder}",
+                "shell": {
+                    "executable": "powershell.exe",
+                    "args": ["-Command"]
+                }
+            },
+            "problemMatcher": [],
+            "dependsOn": [
+                "Delete bin folder"
+            ]
+        },
+        {
+            "label": "Create bin folder",
+            "type": "shell",
+            "command": "mkdir bin",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [],
+            "dependsOn": [
+                "Delete obj folder"
+            ]
+        },
+        {
+            "label": "Create obj folder",
+            "type": "shell",
+            "command": "mkdir obj",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [],
+            "dependsOn": [
+                "Create bin folder"
+            ]
+        },
+        {
+            "type": "cppbuild",
+            "label": "C/C++: cl.exe build all .cpp files",
+            "command": "cl.exe",
+            "args": [
+                "/Zi",
+                "/EHsc",
+                "/nologo",
+                "/Fe${workspaceFolder}\\bin\\task-cli.exe",
+                "/Fo${workspaceFolder}\\obj\\",
+                "*.cpp"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "dependsOn": [
+                "Create obj folder"
+            ],
+            "problemMatcher": [
+                "$msCompile"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "Builds all .cpp files in the current directory."
+        }
+    ],
+    "version": "2.0.0"
+}

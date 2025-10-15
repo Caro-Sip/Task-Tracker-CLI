@@ -1,0 +1,6 @@
+.obsidian/workspace.json
+.obsidian/workspaces.json
+.vscode/settings.json
+bin/
+obj/
+*.pdb
